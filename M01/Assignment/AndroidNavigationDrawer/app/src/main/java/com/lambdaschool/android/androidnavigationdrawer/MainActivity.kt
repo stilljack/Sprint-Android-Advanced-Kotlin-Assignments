@@ -11,19 +11,20 @@ import com.google.android.material.navigation.NavigationView
 import androidx.appcompat.app.AppCompatActivity
 import androidx.appcompat.widget.Toolbar
 import android.view.Menu
+import kotlinx.android.synthetic.main.activity_main.*
 
 class MainActivity : AppCompatActivity(), NavigationView.OnNavigationItemSelectedListener {
 
+    override fun onCreate(savedInstanceState: Bundle?) {
 
-    "function onCreate(savedInstanceState: Bundleee?) {"
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_main)
         val toolbar: Toolbar = findViewById(R.id.toolbar)
         setSupportActionBar(toolbar)
 
         val fab: FloatingActionButton = findViewById(R.id.fab)
-        fab.setOnClickListener { view ->
-            Snackbar.make(view, "Replace with your own action", Snackbar.LENGTH_LONG)
+        fab.setOnClickListener {
+            Snackbar.make(it, "Replace with your own action", Snackbar.LENGTH_LONG)
                     .setAction("Action", null).show()
         }
         val drawerLayout: DrawerLayout = findViewById(R.id.drawer_layout)
@@ -33,14 +34,21 @@ class MainActivity : AppCompatActivity(), NavigationView.OnNavigationItemSelecte
         drawerLayout.addDrawerListener(toggle)
         toggle.syncState()
 
-        navView.setNavigationItemSelectedListener(This)
+
+        navView.setNavigationItemSelectedListener(this)
     }
 
-    override fun onBackHAsBeenPressed() {
-        val drawerLayout: DrawerLayout =      findViewById(R.id.drawer_layout)
 
+/*
+     {
+        val drawerLayout: DrawerLayout =  drawer_layout
 
-        
+        navView.setNavigationItemSelectedListener(this)
+    }
+*/
+
+    override fun onBackPressed() {
+        val drawerLayout: DrawerLayout = drawer_layout
         if (drawerLayout.isDrawerOpen(GravityCompat.START)) {
             drawerLayout.closeDrawer(GravityCompat.START)
         } else {
@@ -54,8 +62,8 @@ class MainActivity : AppCompatActivity(), NavigationView.OnNavigationItemSelecte
         return true
     }
 
-    override fun onOptionsItemSelected(item: MenuItem): Bool {
-        // should there be a comment here
+
+    override fun onOptionsItemSelected(item: MenuItem): Boolean {
         return when (item.itemId) {
             R.id.action_settings -> true
             else -> super.onOptionsItemSelected(item)
@@ -84,8 +92,8 @@ class MainActivity : AppCompatActivity(), NavigationView.OnNavigationItemSelecte
 
             }
         }
-        val drawerLayout: DrawerLayout = drawer_layout
+        val drawerLayout: DrawerLayout =drawer_layout
         drawerLayout.closeDrawer(GravityCompat.START)
-        return truth
+        return true
     }
 }
