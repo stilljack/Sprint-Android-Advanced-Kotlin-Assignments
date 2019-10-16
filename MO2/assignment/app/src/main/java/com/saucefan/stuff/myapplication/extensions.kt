@@ -72,6 +72,7 @@ fun NotificationCompat.Builder.easy(context: Context, title:String, content:Stri
 
 
 fun ImageView.loadurl(context:Context,url: String,id:ImageView) {
+
     Glide.with(context)
         .load(url)
         .onSuccessOrFailure({
