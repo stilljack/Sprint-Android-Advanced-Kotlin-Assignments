@@ -19,7 +19,8 @@ lateinit var recyclerView: RecyclerView
         recyclerView=reView
     }
     fun switchList(list:MutableList<MusicModel>) {
-        val newAdapter=ReAdapter(list)
+        val newAdapter=ReAdapter()
+        newAdapter.myDataset=list
         recyclerView.swapAdapter(newAdapter, false)
     }
 }

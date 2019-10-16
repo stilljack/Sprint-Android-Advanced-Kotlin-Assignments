@@ -1,5 +1,8 @@
 package com.saucefan.stuff.m03
 
+import com.saucefan.stuff.m03.Model.allTheStuff
+import kotlin.properties.Delegates
+import kotlin.properties.Delegates.observable
 import kotlin.random.Random
 
 sealed class MusicModel (val name:String, val artist:String)
@@ -56,3 +59,17 @@ object Model {
         return mutlist
     }
 }
+
+/*
+class listOfStuff {
+    var allTheStuffObservable: MutableList<MusicModel> by observable(allTheStuff) { _, oldValue, newValue ->
+        onItemsChanged?.invoke(oldValue, newValue)
+    }
+    // Adapter
+
+
+
+val list = ListOfStuff()
+book.onItemsChanged = { oldValue, newValue ->
+    // do stuff
+}*/

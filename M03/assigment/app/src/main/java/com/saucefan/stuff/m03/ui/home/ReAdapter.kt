@@ -4,12 +4,21 @@ import android.view.LayoutInflater
 import android.view.ViewGroup
 import android.widget.TextView
 import androidx.cardview.widget.CardView
+import androidx.recyclerview.widget.DiffUtil
 import androidx.recyclerview.widget.RecyclerView
 import com.saucefan.stuff.m03.*
+import com.saucefan.stuff.m03.ui.AutoUpdatableAdapter
 import kotlinx.android.synthetic.main.cardview_list.view.*
+import kotlin.properties.Delegates
 
-class ReAdapter(private val myDataset: MutableList<MusicModel>) : RecyclerView.Adapter<ReAdapter.MyViewHolder>() {
+class ReAdapter() : RecyclerView.Adapter<ReAdapter.MyViewHolder>(),
+    AutoUpdatableAdapter {
 
+
+    var myDataset: List<MusicModel> by Delegates.observable(emptyList()) {
+            prop, old, new ->
+        autoNotify(old, new) { o, n -> o.name != n.name }
+    }
     class MyViewHolder(val cv: CardView) : RecyclerView.ViewHolder(cv)
     override fun onCreateViewHolder(parent: ViewGroup,
                                     viewType: Int): ReAdapter.MyViewHolder {
@@ -35,6 +44,11 @@ class ReAdapter(private val myDataset: MutableList<MusicModel>) : RecyclerView.A
 
     }
 
+
     // Return the size of your dataset (invoked by the layout manager)
     override fun getItemCount() = myDataset.size
+
+
+
+
 }

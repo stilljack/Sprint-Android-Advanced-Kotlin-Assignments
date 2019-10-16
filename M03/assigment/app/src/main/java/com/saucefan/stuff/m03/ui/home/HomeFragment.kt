@@ -15,11 +15,15 @@ import com.saucefan.stuff.m03.toasty
 import kotlinx.android.synthetic.main.fragment_home.*
 import android.view.MenuInflater
 import android.widget.Toast
+import androidx.appcompat.app.ActionBarDrawerToggle
 import com.saucefan.stuff.m03.Model
 import com.saucefan.stuff.m03.Model.disco
+import com.saucefan.stuff.m03.Model.randomList
 import com.saucefan.stuff.m03.Model.whatever
+import com.saucefan.stuff.m03.MusicModel
 import com.saucefan.stuff.m03.R
 import kotlinx.android.synthetic.main.cardview_list.*
+import kotlin.properties.Delegates
 
 
 class HomeFragment : Fragment() {
@@ -70,19 +74,20 @@ val contxt by lazy {
      when (item.itemId) {
 
             R.id.rock -> {contxt.toasty("rock")
-                homeViewModel.switchList(rock)
+                fillAdapter(rock)
                 return true}
             R.id.whatever ->{ contxt.toasty("whatever")
-                homeViewModel.switchList(Model.whatever)
+                allTheStuff.addAll(Model.whatever)
                 return true}
             R.id.disco ->{contxt.toasty("disco")
-                homeViewModel.switchList(disco)
+                allTheStuff.addAll(disco)
                 return true }
             R.id.all->{contxt.toasty("all")
                 homeViewModel.switchList(allTheStuff)
                 return true}
             R.id.random -> {
                 contxt.toasty("random")
+                homeViewModel.switchList(randomList().shuffled() as MutableList<MusicModel>)
             }
             else ->   return super.onContextItemSelected(item)
 
@@ -95,7 +100,8 @@ val contxt by lazy {
         viewManager = LinearLayoutManager(context)
         rock
         allTheStuff.set(0,rock[0])
-        viewAdapter = ReAdapter(allTheStuff)
+        viewAdapter = ReAdapter()
+        fillAdapter(allTheStuff)
         recyclerView.apply {
 
             homeViewModel.setReView(recyclerView)
@@ -106,10 +112,18 @@ val contxt by lazy {
             adapter = viewAdapter
 
         }
+
     }
     override fun onStart() {
         super.onStart()
 
-
     }
+
+    private fun fillAdapter(mutlist:MutableList<MusicModel>) {
+        val oldItems = viewAdapter.myDataset
+        viewAdapter.myDataset= mutlist
+        viewAdapter.notifyDataSetChanged()
+    }
+
+
 }
