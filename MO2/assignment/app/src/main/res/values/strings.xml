@@ -1,0 +1,10 @@
+<resources>
+    <string name="app_name">My Application</string>
+    <string name="channelName">channel default</string>
+    <string name="channelDescription">channel desc default</string>
+    <string name="channelID">this</string>
+<string name="ticker">ticker</string>
+
+
+
+</resources>
