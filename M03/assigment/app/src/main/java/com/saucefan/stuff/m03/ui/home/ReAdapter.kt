@@ -3,33 +3,36 @@ package com.saucefan.stuff.m03.ui.home
 import android.view.LayoutInflater
 import android.view.ViewGroup
 import android.widget.TextView
+import androidx.cardview.widget.CardView
 import androidx.recyclerview.widget.RecyclerView
-import com.saucefan.stuff.m03.R
+import com.saucefan.stuff.m03.*
+import kotlinx.android.synthetic.main.cardview_list.view.*
 
-class ReAdapter(private val myDataset: Array<String>) : RecyclerView.Adapter<ReAdapter.MyViewHolder>() {
+class ReAdapter(private val myDataset: MutableList<MusicModel>) : RecyclerView.Adapter<ReAdapter.MyViewHolder>() {
 
-    // Provide a reference to the views for each data item
-    // Complex data items may need more than one view per item, and
-    // you provide access to all the views for a data item in a view holder.
-    // Each data item is just a string in this case that is shown in a TextView.
-    class MyViewHolder(val textView: TextView) : RecyclerView.ViewHolder(textView)
-
-
-    // Create new views (invoked by the layout manager)
+    class MyViewHolder(val cv: CardView) : RecyclerView.ViewHolder(cv)
     override fun onCreateViewHolder(parent: ViewGroup,
                                     viewType: Int): ReAdapter.MyViewHolder {
         // create a new view
-        val textView = LayoutInflater.from(parent.context)
-            .inflate(R.id. parent, false) as TextView
+        val cv = LayoutInflater.from(parent.context)
+            .inflate(R.layout.cardview_list, parent, false)  as CardView
         // set the view's size, margins, paddings and layout parameters
-        return MyViewHolder(textView)
+        return MyViewHolder(cv)
     }
 
     // Replace the contents of a view (invoked by the layout manager)
     override fun onBindViewHolder(holder: MyViewHolder, position: Int) {
         // - get element from your dataset at this position
         // - replace the contents of the view with that element
-        holder.textView.text = myDataset[position]
+        val current =myDataset[position]
+        holder.cv.artist.text = current.artist
+        holder.cv.song.text = current.name
+        holder.cv.whatever.text = when (current) {
+            is Rock -> "rockReA"
+                is Disco ->"discoReA"
+                    is Whatever ->"whateverReA"
+        }
+
     }
 
     // Return the size of your dataset (invoked by the layout manager)
