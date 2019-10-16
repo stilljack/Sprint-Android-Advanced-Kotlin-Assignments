@@ -63,8 +63,8 @@ fun NotificationCompat.Builder.easy(context: Context, title:String, content:Stri
 }
 
 
-fun ImageView.loadurl(url: String,id:ImageView) {
-    Glide.with(this)
+fun ImageView.loadurl(context:Context,url: String,id:ImageView) {
+    Glide.with(context)
         .load(url)
         .onSuccessOrFailure({
         Toast.makeText(this.context, "It worked", Toast.LENGTH_LONG).show()
