@@ -83,6 +83,7 @@ fun ImageView.loadurl(context:Context,url: String,id:ImageView) {
         .into(id)
 }
 
+
 fun RequestBuilder<Drawable>.onSuccessOrFailure(
     onSuccess: () -> Unit,
     onFailure: () -> Unit
