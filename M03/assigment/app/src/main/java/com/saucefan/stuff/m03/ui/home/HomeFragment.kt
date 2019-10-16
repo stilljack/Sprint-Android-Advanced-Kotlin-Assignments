@@ -15,7 +15,11 @@ import com.saucefan.stuff.m03.toasty
 import kotlinx.android.synthetic.main.fragment_home.*
 import android.view.MenuInflater
 import android.widget.Toast
+import com.saucefan.stuff.m03.Model
+import com.saucefan.stuff.m03.Model.disco
+import com.saucefan.stuff.m03.Model.whatever
 import com.saucefan.stuff.m03.R
+import kotlinx.android.synthetic.main.cardview_list.*
 
 
 class HomeFragment : Fragment() {
@@ -66,13 +70,16 @@ val contxt by lazy {
      when (item.itemId) {
 
             R.id.rock -> {contxt.toasty("rock")
-                Toast.makeText(context,"something",Toast.LENGTH_SHORT).show()
+                homeViewModel.switchList(rock)
                 return true}
             R.id.whatever ->{ contxt.toasty("whatever")
+                homeViewModel.switchList(Model.whatever)
                 return true}
             R.id.disco ->{contxt.toasty("disco")
+                homeViewModel.switchList(disco)
                 return true }
             R.id.all->{contxt.toasty("all")
+                homeViewModel.switchList(allTheStuff)
                 return true}
             R.id.random -> {
                 contxt.toasty("random")
