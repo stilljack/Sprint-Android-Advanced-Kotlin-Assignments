@@ -1,0 +1,29 @@
+<?xml version="1.0" encoding="utf-8"?>
+<menu xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto">
+    <item
+        android:id="@+id/rock"
+        android:orderInCategory="100"
+        android:title="rock"
+        app:showAsAction="never" />
+    <item
+        android:id="@+id/whatever"
+        android:orderInCategory="100"
+        android:title="whatever"
+        app:showAsAction="never" />
+    <item
+        android:id="@+id/disco"
+        android:orderInCategory="100"
+        android:title="disco"
+        app:showAsAction="never" />
+    <item
+        android:id="@+id/all"
+        android:orderInCategory="100"
+        android:title="all"
+        app:showAsAction="never" />
+    <item
+        android:id="@+id/random"
+        android:orderInCategory="100"
+        android:title="random"
+        app:showAsAction="never" />
+</menu>
