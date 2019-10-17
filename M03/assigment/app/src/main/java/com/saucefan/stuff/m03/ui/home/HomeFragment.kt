@@ -1,5 +1,6 @@
 package com.saucefan.stuff.m03.ui.home
 
+
 import android.content.Context
 import android.os.Bundle
 import android.view.*
@@ -9,24 +10,23 @@ import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProviders
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
-import com.saucefan.stuff.m03.ui.model.Model.allTheStuff
-import com.saucefan.stuff.m03.ui.model.Model.rock
+import com.saucefan.stuff.m03.R
 import com.saucefan.stuff.m03.toasty
-import android.view.MenuInflater
-import androidx.activity.viewModels
-import androidx.fragment.app.viewModels
+import com.saucefan.stuff.m03.ui.model.DataSourceLocal
 import com.saucefan.stuff.m03.ui.model.Model
 import com.saucefan.stuff.m03.ui.model.Model.disco
-import com.saucefan.stuff.m03.ui.model.Model.randomList
+import com.saucefan.stuff.m03.ui.model.Model.rock
+import com.saucefan.stuff.m03.ui.model.Model.whatever
 import com.saucefan.stuff.m03.ui.model.MusicModel
-import com.saucefan.stuff.m03.R
+import kotlinx.android.synthetic.main.cardview_list.*
 
 
 class HomeFragment : Fragment() {
 val contxt by lazy {
     context as Context
 }
-    val homeViewModel:HomeViewModel by viewModels { LiveDataVMFactory }
+    private lateinit var homeViewModel:HomeViewModel
+    private lateinit var  datasource:DataSourceLocal
     private lateinit var recyclerView: RecyclerView
     private lateinit var viewAdapter: ReAdapter
     private lateinit var viewManager: RecyclerView.LayoutManager
@@ -36,18 +36,17 @@ val contxt by lazy {
         savedInstanceState: Bundle?
     ): View? {
 
-            //ViewModelProviders.of(this).get(HomeViewModel::class.java)
+       // var homeViewModel:HomeViewModel = HomeViewModel()
+          homeViewModel = ViewModelProviders.of(this).get(HomeViewModel::class.java)
         val root = inflater.inflate(R.layout.fragment_home, container, false)
         val textView: TextView = root.findViewById(R.id.text_home)
         recyclerView =root.findViewById(R.id.recycle)
-        homeViewModel.text.observe(this, Observer {
-            textView.text = it
+
+        homeViewModel.toBeObserved().observe(this, Observer {
+            fillAdapter(it)
         })
 
-
-
         setHasOptionsMenu(true)
-
         return root
     }
 
@@ -72,20 +71,21 @@ val contxt by lazy {
      when (item.itemId) {
 
             R.id.rock -> {contxt.toasty("rock")
-                fillAdapter(rock)
+                homeViewModel.allTheStuff.value?.addAll(Model.rock)
                 return true}
             R.id.whatever ->{ contxt.toasty("whatever")
-                allTheStuff.addAll(Model.whatever)
+                homeViewModel.allTheStuff.value?.addAll(Model.whatever)
                 return true}
             R.id.disco ->{contxt.toasty("disco")
-                allTheStuff.addAll(disco)
+                homeViewModel.allTheStuff.value?.addAll(disco)
                 return true }
             R.id.all->{contxt.toasty("all")
-                homeViewModel.switchList(allTheStuff)
+              //  homeViewModel.switchList(homeViewModel.allTheStuff.value as MutableList<MusicModel>)
                 return true}
             R.id.random -> {
                 contxt.toasty("random")
-                homeViewModel.switchList(randomList().shuffled() as MutableList<MusicModel>)
+                homeViewModel.randomList()
+              //  homeViewModel.switchList(homeViewModel.randomList().shuffled() as MutableList<MusicModel>)
             }
             else ->   return super.onContextItemSelected(item)
 
@@ -97,9 +97,9 @@ val contxt by lazy {
         super.onViewCreated(view, savedInstanceState)
         viewManager = LinearLayoutManager(context)
         rock
-        allTheStuff.set(0,rock[0])
+        homeViewModel.allTheStuff.value?.set(0,rock[0])
         viewAdapter = ReAdapter()
-        fillAdapter(allTheStuff)
+        fillAdapter(homeViewModel.allTheStuff.value as MutableList<MusicModel>)
         recyclerView.apply {
 
             homeViewModel.setReView(recyclerView)

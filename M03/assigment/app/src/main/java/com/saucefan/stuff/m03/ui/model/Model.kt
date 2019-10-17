@@ -1,5 +1,6 @@
 package com.saucefan.stuff.m03.ui.model
 
+import com.saucefan.stuff.m03.ui.home.HomeViewModel
 import kotlin.random.Random
 
 sealed class MusicModel (val name:String, val artist:String)
@@ -26,7 +27,7 @@ object Model {
         Whatever("w s 3", "w a 3")
     )
 
-  var allTheStuff = mutableListOf<MusicModel>()
+
 
     var someStuff = mutableListOf<MusicModel>()
     set(value) {
@@ -38,23 +39,7 @@ object Model {
         }
 
     }
-    init {
 
-        allTheStuff   .addAll(rock)
-        allTheStuff  .addAll(disco)
-        allTheStuff  .addAll(whatever)
-
-    }
-
-    fun randomList():MutableList<MusicModel>{
-        val mutlist= mutableListOf<MusicModel>()
-        for (i in 0 until allTheStuff.size) {
-            if (Random.nextInt(10)<=5){
-                mutlist.add(allTheStuff[i])
-            }
-        }
-        return mutlist
-    }
 }
 
 /*
