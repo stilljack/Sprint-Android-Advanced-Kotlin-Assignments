@@ -1,6 +1,7 @@
 package com.saucefan.stuff.unrequestionreplacementforfragments
 
 
+import android.graphics.Color
 import android.widget.TextView
 import android.view.ViewGroup
 import android.view.LayoutInflater
@@ -12,13 +13,18 @@ import com.bluelinelabs.conductor.*
 import com.bluelinelabs.conductor.changehandler.HorizontalChangeHandler
 
 
-class HomeController (val string:String? =null) : BaseCtrler() {
+class HomeController (var communicatedString:String? =null) : BaseCtrler() {
  val horizontalChangeHandler =HorizontalChangeHandler()
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup): View {
         val view = inflater.inflate(R.layout.activity_main, container, false)
-        (view.findViewById(R.id.tv_title) as TextView).text = "i'm da joker baby.txt backstack size =${string}"
+        (view.findViewById(R.id.tv_title) as TextView).text = "i'm da joker baby.txt backstack size =${communicatedString}"
         return view
     }
+
+    fun getMessage(string: String?):String? {
+        return communicatedString
+    }
+
     protected override fun onChangeEnded(
         changeHandler: ControllerChangeHandler,
         changeType: ControllerChangeType
@@ -36,8 +42,13 @@ class HomeController (val string:String? =null) : BaseCtrler() {
             )
 
         }
-        if (router.backstackSize == 0){
-            btnView2?.visibility =  INVISIBLE
+        if (router.backstackSize <= 1){
+            btnView2?.isEnabled =false
+        } else {
+            btnView?.text=communicatedString
+            val sauce =targetController
+            targetController?.view?.setBackgroundColor(Color.BLUE)
+
         }
         btnView2?.setOnClickListener {
             router.popCurrentController()
