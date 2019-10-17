@@ -12,11 +12,11 @@ import com.bluelinelabs.conductor.*
 import com.bluelinelabs.conductor.changehandler.HorizontalChangeHandler
 
 
-class HomeController : Controller() {
+class HomeController (val string:String? =null) : BaseCtrler() {
  val horizontalChangeHandler =HorizontalChangeHandler()
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup): View {
         val view = inflater.inflate(R.layout.activity_main, container, false)
-        (view.findViewById(R.id.tv_title) as TextView).text = "i'm da joker baby.txt backstack size =${router.backstackSize}"
+        (view.findViewById(R.id.tv_title) as TextView).text = "i'm da joker baby.txt backstack size =${string}"
         return view
     }
     protected override fun onChangeEnded(
@@ -30,7 +30,7 @@ class HomeController : Controller() {
         val btnView=view?.findViewById<Button>(R.id.btn)
         val btnView2 =view?.findViewById<Button>(R.id.btn2)
         btnView?.setOnClickListener {
-            router.pushController(RouterTransaction.with(HomeController())
+            router.pushController(RouterTransaction.with(HomeController(router.backstackSize.toString()))
                 .pushChangeHandler(HorizontalChangeHandler())
                 .popChangeHandler(HorizontalChangeHandler())
             )
