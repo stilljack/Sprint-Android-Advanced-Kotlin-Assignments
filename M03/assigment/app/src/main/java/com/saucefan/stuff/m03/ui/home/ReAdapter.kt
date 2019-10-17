@@ -2,12 +2,14 @@ package com.saucefan.stuff.m03.ui.home
 
 import android.view.LayoutInflater
 import android.view.ViewGroup
-import android.widget.TextView
 import androidx.cardview.widget.CardView
-import androidx.recyclerview.widget.DiffUtil
 import androidx.recyclerview.widget.RecyclerView
 import com.saucefan.stuff.m03.*
 import com.saucefan.stuff.m03.ui.AutoUpdatableAdapter
+import com.saucefan.stuff.m03.ui.model.Disco
+import com.saucefan.stuff.m03.ui.model.MusicModel
+import com.saucefan.stuff.m03.ui.model.Rock
+import com.saucefan.stuff.m03.ui.model.Whatever
 import kotlinx.android.synthetic.main.cardview_list.view.*
 import kotlin.properties.Delegates
 

@@ -9,28 +9,24 @@ import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProviders
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
-import com.saucefan.stuff.m03.Model.allTheStuff
-import com.saucefan.stuff.m03.Model.rock
+import com.saucefan.stuff.m03.ui.model.Model.allTheStuff
+import com.saucefan.stuff.m03.ui.model.Model.rock
 import com.saucefan.stuff.m03.toasty
-import kotlinx.android.synthetic.main.fragment_home.*
 import android.view.MenuInflater
-import android.widget.Toast
-import androidx.appcompat.app.ActionBarDrawerToggle
-import com.saucefan.stuff.m03.Model
-import com.saucefan.stuff.m03.Model.disco
-import com.saucefan.stuff.m03.Model.randomList
-import com.saucefan.stuff.m03.Model.whatever
-import com.saucefan.stuff.m03.MusicModel
+import androidx.activity.viewModels
+import androidx.fragment.app.viewModels
+import com.saucefan.stuff.m03.ui.model.Model
+import com.saucefan.stuff.m03.ui.model.Model.disco
+import com.saucefan.stuff.m03.ui.model.Model.randomList
+import com.saucefan.stuff.m03.ui.model.MusicModel
 import com.saucefan.stuff.m03.R
-import kotlinx.android.synthetic.main.cardview_list.*
-import kotlin.properties.Delegates
 
 
 class HomeFragment : Fragment() {
 val contxt by lazy {
     context as Context
 }
-    private lateinit var homeViewModel: HomeViewModel
+    val homeViewModel:HomeViewModel by viewModels { LiveDataVMFactory }
     private lateinit var recyclerView: RecyclerView
     private lateinit var viewAdapter: ReAdapter
     private lateinit var viewManager: RecyclerView.LayoutManager
@@ -39,14 +35,16 @@ val contxt by lazy {
         container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View? {
-        homeViewModel =
-            ViewModelProviders.of(this).get(HomeViewModel::class.java)
+
+            //ViewModelProviders.of(this).get(HomeViewModel::class.java)
         val root = inflater.inflate(R.layout.fragment_home, container, false)
         val textView: TextView = root.findViewById(R.id.text_home)
         recyclerView =root.findViewById(R.id.recycle)
         homeViewModel.text.observe(this, Observer {
             textView.text = it
         })
+
+
 
         setHasOptionsMenu(true)
 

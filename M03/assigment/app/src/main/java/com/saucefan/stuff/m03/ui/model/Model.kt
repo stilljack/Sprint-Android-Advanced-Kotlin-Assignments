@@ -1,8 +1,5 @@
-package com.saucefan.stuff.m03
+package com.saucefan.stuff.m03.ui.model
 
-import com.saucefan.stuff.m03.Model.allTheStuff
-import kotlin.properties.Delegates
-import kotlin.properties.Delegates.observable
 import kotlin.random.Random
 
 sealed class MusicModel (val name:String, val artist:String)
