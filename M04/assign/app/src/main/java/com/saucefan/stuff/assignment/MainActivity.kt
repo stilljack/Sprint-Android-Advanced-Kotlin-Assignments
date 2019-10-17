@@ -6,6 +6,7 @@ import androidx.appcompat.app.AppCompatActivity
 import android.view.Menu
 import android.view.MenuItem
 import android.view.ViewGroup
+import android.widget.TwoLineListItem
 import com.bluelinelabs.conductor.Conductor
 import com.bluelinelabs.conductor.Router
 import com.bluelinelabs.conductor.RouterTransaction
@@ -15,9 +16,20 @@ import kotlinx.android.synthetic.main.activity_main.*
 
 class MainActivity : AppCompatActivity() {
     private lateinit var router: Router
+    private lateinit var routerTwo: Router
+    private lateinit var routerThree: Router
     private val container: ViewGroup by lazy {
-        this.findViewById<ViewGroup>(R.id.parentlaylout)
+        this.findViewById<ViewGroup>(R.id.first)
     }
+
+    private val containerTwo: ViewGroup by lazy {
+        this.findViewById<ViewGroup>(R.id.second)
+    }
+
+    private val containerThree: ViewGroup by lazy {
+        this.findViewById<ViewGroup>(R.id.third)
+    }
+
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_main)
@@ -30,7 +42,15 @@ class MainActivity : AppCompatActivity() {
 
         router = Conductor.attachRouter(this, container, savedInstanceState)
         if(!router.hasRootController()) {
-            router.setRoot(RouterTransaction.with(HomeController("Hello Conductor!")))
+            router.setRoot(RouterTransaction.with(HomeController("Hello Conductor!1")))
+        }
+        routerTwo = Conductor.attachRouter(this, containerTwo, savedInstanceState)
+        if(!routerTwo.hasRootController()) {
+            routerTwo.setRoot(RouterTransaction.with(HomeController("Hello Conductor!2")))
+        }
+        routerThree = Conductor.attachRouter(this, containerThree, savedInstanceState)
+        if(!routerThree.hasRootController()) {
+            routerThree.setRoot(RouterTransaction.with(HomeController("Hello Conductor!")))
         }
     }
 

@@ -18,7 +18,7 @@ constructor(targetController: T): this()
     }
 
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup): View {
-        return inflater.inflate(R.layout.content_main,container,false)
+        return inflater.inflate(R.layout.second,container,false)
     }
 interface dataPassController{
     fun recieveMSG(int:Int)
@@ -29,7 +29,7 @@ interface dataPassController{
         changeType: ControllerChangeType
     ) {
         super.onChangeEnded(changeHandler, changeType)
-        val sauce = view?.findViewById<Button>(R.id.btn2)
+        val sauce = view?.findViewById<Button>(R.id.btn2_second)
         
 
     }

@@ -21,8 +21,8 @@ class HomeController (var communicatedString:String? =null) : BaseCtrler(),Child
 
     val horizontalChangeHandler =HorizontalChangeHandler()
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup): View {
-        val view = inflater.inflate(R.layout.content_main, container, false)
-        (view.findViewById(R.id.tv_title) as TextView).text = "i'm da joker baby.txt backstack size =${communicatedString}"
+        val view = inflater.inflate(R.layout.first, container, false)
+        (view.findViewById(R.id.tv_first) as TextView).text = "i'm da joker baby.txt backstack size =${communicatedString}"
         return view
     }
 
@@ -38,8 +38,8 @@ class HomeController (var communicatedString:String? =null) : BaseCtrler(),Child
 
         setButtonsEnabled(true)
 
-        val btnView=view?.findViewById<Button>(R.id.btn)
-        val btnView2 =view?.findViewById<Button>(R.id.btn2)
+        val btnView=view?.findViewById<Button>(R.id.btn_first)
+        val btnView2 =view?.findViewById<Button>(R.id.btn2_first)
         btnView?.setOnClickListener {
             /*router.pushController(RouterTransaction.with(HomeController(router.backstackSize.toString()))
                 .pushChangeHandler(HorizontalChangeHandler())
