@@ -8,10 +8,12 @@ import com.bluelinelabs.conductor.Controller
 import com.bluelinelabs.conductor.ControllerChangeHandler
 import com.bluelinelabs.conductor.ControllerChangeType
 import com.saucefan.stuff.assignment.R
+import kotlin.random.Random
 
 class ChildController<T>() : BaseCtrler()
    where T:Controller, T:ChildController.dataPassController
 {
+
 constructor(targetController: T): this()
      {
         setTargetController(targetController)
@@ -29,8 +31,14 @@ interface dataPassController{
         changeType: ControllerChangeType
     ) {
         super.onChangeEnded(changeHandler, changeType)
-        val sauce = view?.findViewById<Button>(R.id.btn2_second)
-        
+        val btn1 = view?.findViewById<Button>(R.id.btn2_second)
+        val btn2 = view?.findViewById<Button>(R.id.btn2_second)
+       btn1?.text="set parent text"
+         btn1?.setOnClickListener {
+             (targetController as dataPassController).recieveMSG(Random.nextInt())
+         }
+            btn2?.setOnClickListener { }
+
 
     }
 

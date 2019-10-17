@@ -12,11 +12,13 @@ import com.bluelinelabs.conductor.ControllerChangeType
 import com.bluelinelabs.conductor.RouterTransaction
 import com.bluelinelabs.conductor.changehandler.HorizontalChangeHandler
 import com.saucefan.stuff.assignment.R
+import org.w3c.dom.Text
 
 
 class HomeController (var communicatedString:String? =null) : BaseCtrler(),ChildController.dataPassController {
     override fun recieveMSG(int: Int) {
         communicatedString += "$int"
+        (view?.findViewById<TextView>(R.id.tv_first))?.text=communicatedString
     }
 
     val horizontalChangeHandler =HorizontalChangeHandler()
