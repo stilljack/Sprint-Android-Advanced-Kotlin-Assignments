@@ -1,5 +1,6 @@
 package com.saucefan.stuff.assignment.controllers
 
+import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -10,11 +11,11 @@ import com.bluelinelabs.conductor.ControllerChangeType
 import com.saucefan.stuff.assignment.R
 import kotlin.random.Random
 
-class ChildController<T>() : BaseCtrler()
+class ChildController<T>(bundle: Bundle) : BaseCtrler(bundle)
    where T:Controller, T:ChildController.dataPassController
 {
 
-constructor(targetController: T): this()
+constructor(targetController: T,bundle: Bundle): this(bundle)
      {
         setTargetController(targetController)
     }
@@ -31,13 +32,16 @@ interface dataPassController{
         changeType: ControllerChangeType
     ) {
         super.onChangeEnded(changeHandler, changeType)
-        val btn1 = view?.findViewById<Button>(R.id.btn2_second)
+        val btn1 = view?.findViewById<Button>(R.id.btn_second)
         val btn2 = view?.findViewById<Button>(R.id.btn2_second)
        btn1?.text="set parent text"
+        btn2?.text="go back"
          btn1?.setOnClickListener {
-             (targetController as dataPassController).recieveMSG(Random.nextInt())
+             (targetController as HomeController).recieveMSG(Random.nextInt())
          }
-            btn2?.setOnClickListener { }
+            btn2?.setOnClickListener {
+                router.popCurrentController()
+            }
 
 
     }

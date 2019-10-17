@@ -2,6 +2,7 @@ package com.saucefan.stuff.assignment.controllers
 
 
 import android.graphics.Color
+import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -11,20 +12,30 @@ import com.bluelinelabs.conductor.ControllerChangeHandler
 import com.bluelinelabs.conductor.ControllerChangeType
 import com.bluelinelabs.conductor.RouterTransaction
 import com.bluelinelabs.conductor.changehandler.HorizontalChangeHandler
+import com.saucefan.stuff.assignment.EXTRA_STRING
 import com.saucefan.stuff.assignment.R
 import org.w3c.dom.Text
 
 
-class HomeController (var communicatedString:String? =null) : BaseCtrler(),ChildController.dataPassController {
+class HomeController (bundle:Bundle) : BaseCtrler(bundle),ChildController.dataPassController {
+    lateinit var communicatedStringLate:String
+    constructor(communicatedString:String? =null): this(Bundle().apply {
+        putString(EXTRA_STRING,communicatedString)
+    })
+    val communicatedString by lazy {
+        args.getString(EXTRA_STRING)
+    }
+
     override fun recieveMSG(int: Int) {
-        communicatedString += "$int"
-        (view?.findViewById<TextView>(R.id.tv_first))?.text=communicatedString
+        var communicatedStringLate = communicatedString + "$int"
+        val target =view?.findViewById<TextView>(R.id.tv_first)
+            target?.text=communicatedStringLate
     }
 
     val horizontalChangeHandler =HorizontalChangeHandler()
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup): View {
         val view = inflater.inflate(R.layout.first, container, false)
-        (view.findViewById(R.id.tv_first) as TextView).text = "i'm da joker baby.txt backstack size =${communicatedString}"
+        //(view.findViewById(R.id.tv_first) as TextView).text = "i'm da joker baby.txt backstack size =${communicatedString}"
         return view
     }
 
@@ -47,7 +58,7 @@ class HomeController (var communicatedString:String? =null) : BaseCtrler(),Child
                 .pushChangeHandler(HorizontalChangeHandler())
                 .popChangeHandler(HorizontalChangeHandler())
             )*/recieveMSG(6)
-            router.pushController(RouterTransaction.with(ChildController(this ))
+            router.pushController(RouterTransaction.with(ChildController(this,Bundle() ))
                 .pushChangeHandler(HorizontalChangeHandler())
                 .popChangeHandler(HorizontalChangeHandler())
             )
