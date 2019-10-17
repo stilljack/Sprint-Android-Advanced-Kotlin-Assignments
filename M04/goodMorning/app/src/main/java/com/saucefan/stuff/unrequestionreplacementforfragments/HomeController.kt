@@ -13,8 +13,12 @@ import com.bluelinelabs.conductor.*
 import com.bluelinelabs.conductor.changehandler.HorizontalChangeHandler
 
 
-class HomeController (var communicatedString:String? =null) : BaseCtrler() {
- val horizontalChangeHandler =HorizontalChangeHandler()
+class HomeController (var communicatedString:String? =null) : BaseCtrler(),ChildController.dataPassController {
+    override fun recieveMSG(int: Int) {
+        communicatedString = communicatedString + "$int"
+    }
+
+    val horizontalChangeHandler =HorizontalChangeHandler()
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup): View {
         val view = inflater.inflate(R.layout.activity_main, container, false)
         (view.findViewById(R.id.tv_title) as TextView).text = "i'm da joker baby.txt backstack size =${communicatedString}"
@@ -36,11 +40,14 @@ class HomeController (var communicatedString:String? =null) : BaseCtrler() {
         val btnView=view?.findViewById<Button>(R.id.btn)
         val btnView2 =view?.findViewById<Button>(R.id.btn2)
         btnView?.setOnClickListener {
-            router.pushController(RouterTransaction.with(HomeController(router.backstackSize.toString()))
+            /*router.pushController(RouterTransaction.with(HomeController(router.backstackSize.toString()))
+                .pushChangeHandler(HorizontalChangeHandler())
+                .popChangeHandler(HorizontalChangeHandler())
+            )*/recieveMSG(6)
+            router.pushController(RouterTransaction.with(ChildController(this ))
                 .pushChangeHandler(HorizontalChangeHandler())
                 .popChangeHandler(HorizontalChangeHandler())
             )
-
         }
         if (router.backstackSize <= 1){
             btnView2?.isEnabled =false

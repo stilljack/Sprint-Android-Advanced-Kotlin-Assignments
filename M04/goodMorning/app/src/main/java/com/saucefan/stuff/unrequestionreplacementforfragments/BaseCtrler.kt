@@ -6,12 +6,12 @@ import android.view.View
 import android.view.ViewGroup
 import com.bluelinelabs.conductor.Controller
 
-abstract class BaseCtrler :Controller {
+abstract class BaseCtrler :Controller() {
 
 
-    constructor() {}
-    constructor(arg: Bundle) {
 
-    }
+    //constructor(arg: Bundle) {
+
+    //}
 
 }
