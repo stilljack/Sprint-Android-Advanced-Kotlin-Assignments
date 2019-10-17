@@ -49,4 +49,5 @@ dependencies {
 
 // If you want Controllers that are Lifecycle-aware (architecture components):
     implementation 'com.bluelinelabs:conductor-archlifecycle:3.0.0-rc1'
+    implementation 'android.arch.lifecycle:livedata:1.1.1'
 }
