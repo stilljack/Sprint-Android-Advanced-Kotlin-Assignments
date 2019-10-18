@@ -30,10 +30,28 @@ class SharedViewModel : ViewModel() {
 object LiveDataVMFactory : ViewModelProvider.Factory {
 
   //  private val dataSource = DefaultDataSource(Dispatchers.IO)
-
+  val hashMapViewModel = HashMap<String, ViewModel>()
+    fun addViewModel(key: String, viewModel: ViewModel){
+        hashMapViewModel.put(key, viewModel)
+    }
+    fun getViewModel(key: String): ViewModel? {
+        return hashMapViewModel[key]
+    }
     override fun <T : ViewModel?> create(modelClass: Class<T>): T {
         @Suppress("UNCHECKED_CAST")
-        return SharedViewModel() as T
+        if (modelClass.isAssignableFrom(SharedViewModel::class.java)) {
+            val key = "SharedViewModel"
+            if (hashMapViewModel.containsKey(key)) {
+                return getViewModel(key) as T
+            } else {
+                addViewModel(key, SharedViewModel())
+                return getViewModel(key) as T
+            }
+        }
+        throw IllegalArgumentException("Unknown ViewModel class")
+        /*     return SharedViewModel() as T
+
+    }*/
     }
 }
 

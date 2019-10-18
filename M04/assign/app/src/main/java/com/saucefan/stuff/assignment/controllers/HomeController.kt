@@ -67,7 +67,7 @@ communicatedStringLate=""
         super.onChangeEnded(changeHandler, changeType)
 
         val viewModel =activity?.run {
-            viewModelProvider().get(SharedViewModel::class.java)
+            viewModelProvider(LiveDataVMFactory).get(SharedViewModel::class.java)
         } ?: throw Exception("Invalid Activity")
 
 
