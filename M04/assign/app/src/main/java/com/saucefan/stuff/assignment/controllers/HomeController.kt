@@ -8,6 +8,7 @@ import android.view.View
 import android.view.ViewGroup
 import android.widget.Button
 import android.widget.TextView
+import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProvider
 import androidx.lifecycle.ViewModelProviders
 import com.bluelinelabs.conductor.ControllerChangeHandler
@@ -51,9 +52,7 @@ communicatedStringLate=""
             (view.findViewById(R.id.tv_first) as TextView).text =
                 "i'm da joker baby.txt backstack size =${communicatedString} + ${communicatedStringLate}"
 
-        val viewModel =activity?.run {
-            viewModelProvider((SharedViewModel::class.java)
-        } ?: throw Exception("Invalid Activity")
+
         return view
     }
 
@@ -67,8 +66,13 @@ communicatedStringLate=""
     ) {
         super.onChangeEnded(changeHandler, changeType)
 
-        setButtonsEnabled(true)
+        val viewModel =activity?.run {
+            viewModelProvider().get(SharedViewModel::class.java)
+        } ?: throw Exception("Invalid Activity")
 
+
+        setButtonsEnabled(true)
+        val tv=view?.findViewById<TextView>(R.id.tv_first)
         val btnView=view?.findViewById<Button>(R.id.btn_first)
         val btnView2 =view?.findViewById<Button>(R.id.btn2_first)
         btnView?.setOnClickListener {
@@ -84,16 +88,23 @@ communicatedStringLate=""
             )
         }
         if (router.backstackSize <= 1){
-            btnView2?.isEnabled =false
+        //    btnView2?.isEnabled =false
+            btnView2?.setOnClickListener {
+                viewModel.select("this is set from HomeController()")
+            }
         } else {
+            btnView2?.setOnClickListener {
+                router.popCurrentController()
+            }
             btnView?.text=communicatedString
             val sauce =targetController
             targetController?.view?.setBackgroundColor(Color.BLUE)
 
         }
-        btnView2?.setOnClickListener {
-            router.popCurrentController()
-        }
+
+           viewModel.getLiveData().observe(this, Observer<String> {
+                tv?.text=it
+            })
     }
 
     protected override fun onChangeStarted(

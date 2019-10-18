@@ -23,7 +23,7 @@ class SharedViewModel : ViewModel() {
         }
 
         fun getLiveData(): LiveData<String> {
-            return liveData
+            return selected
         }
 
 }
