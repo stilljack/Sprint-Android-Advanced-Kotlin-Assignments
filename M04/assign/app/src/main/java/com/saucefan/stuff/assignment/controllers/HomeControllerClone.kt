@@ -1,6 +1,7 @@
 package com.saucefan.stuff.assignment.controllers
 
 
+
 import android.graphics.Color
 import android.os.Bundle
 import android.view.LayoutInflater
@@ -22,7 +23,7 @@ import org.w3c.dom.Text
 import work.beltran.conductorviewmodel.ViewModelController
 
 
-class HomeController (bundle:Bundle) : ViewModelController(bundle),ChildController.dataPassController {
+class HomeControllerClone (bundle:Bundle) : ViewModelController(bundle),ChildController.dataPassController {
 
 
     companion object {
@@ -30,7 +31,7 @@ class HomeController (bundle:Bundle) : ViewModelController(bundle),ChildControll
     }
 
 
-     var communicatedStringLate:String=""
+    var communicatedStringLate:String=""
     constructor(communicatedString:String? =null): this(Bundle().apply {
         putString(EXTRA_STRING,communicatedString)
     })
@@ -41,16 +42,16 @@ class HomeController (bundle:Bundle) : ViewModelController(bundle),ChildControll
     override fun recieveMSG(int: Int) {
         var communicatedString=communicatedString + "$int"
         var communicatedStringLate = communicatedString + "$int"
-       val target= view?.findViewById<TextView>(R.id.tv_first)
-       target?.text = " $communicatedString from childController()"
+        val target= view?.findViewById<TextView>(R.id.tv_first)
+        target?.text = " $communicatedString from childController()"
     }
 
     val horizontalChangeHandler =HorizontalChangeHandler()
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup): View {
         val view = inflater.inflate(R.layout.first, container, false)
 
-            (view.findViewById(R.id.tv_first) as TextView).text =
-                " backstack size =${communicatedString} + ${communicatedStringLate}"
+        (view.findViewById(R.id.tv_first) as TextView).text =
+            " backstack size =${communicatedString} + ${communicatedStringLate}"
         return view
     }
 
@@ -80,7 +81,7 @@ class HomeController (bundle:Bundle) : ViewModelController(bundle),ChildControll
 
         btnView?.text="2 ChildController()"
         btnView?.setOnClickListener {
-        recieveMSG(6)
+            recieveMSG(6)
             router.pushController(RouterTransaction.with(ChildController(this,Bundle().apply {
                 this.putString(EXTRA_STRING,"this text was communicated from home to child via bundle")
             } ))
@@ -91,7 +92,7 @@ class HomeController (bundle:Bundle) : ViewModelController(bundle),ChildControll
 
 
         if (router.backstackSize <= 1){
-        //    btnView2?.isEnabled =false
+            //    btnView2?.isEnabled =false
             btnView2?.text="set LV HC()"
             btnView2?.setOnClickListener {
                 viewModel.select("this is set from HomeController()")
@@ -106,9 +107,9 @@ class HomeController (bundle:Bundle) : ViewModelController(bundle),ChildControll
 
         }
 
-           viewModel.getLiveData().observe(this, Observer<String> {
-                tv?.text=it
-            })
+        viewModel.getLiveData().observe(this, Observer<String> {
+            tv?.text=it
+        })
     }
 
     protected override fun onChangeStarted(

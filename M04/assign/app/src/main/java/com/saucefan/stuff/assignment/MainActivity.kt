@@ -11,6 +11,7 @@ import com.bluelinelabs.conductor.Conductor
 import com.bluelinelabs.conductor.Router
 import com.bluelinelabs.conductor.RouterTransaction
 import com.saucefan.stuff.assignment.controllers.HomeController
+import com.saucefan.stuff.assignment.controllers.HomeControllerClone
 
 import kotlinx.android.synthetic.main.activity_main.*
 
@@ -44,14 +45,16 @@ class MainActivity : AppCompatActivity() {
         if(!router.hasRootController()) {
             router.setRoot(RouterTransaction.with(HomeController("Hello Conductor!1")))
         }
-     /*   routerTwo = Conductor.attachRouter(this, containerTwo, savedInstanceState)
+     routerTwo = Conductor.attachRouter(this, containerTwo, savedInstanceState)
         if(!routerTwo.hasRootController()) {
             routerTwo.setRoot(RouterTransaction.with(HomeController("Hello Conductor!2")))
         }
+
+
         routerThree = Conductor.attachRouter(this, containerThree, savedInstanceState)
         if(!routerThree.hasRootController()) {
-            routerThree.setRoot(RouterTransaction.with(HomeController("Hello Conductor!")))
-        }*/
+            routerThree.setRoot(RouterTransaction.with(HomeControllerClone("Hello Conductor!")))
+        }
     }
 
     override fun onCreateOptionsMenu(menu: Menu): Boolean {

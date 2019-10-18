@@ -58,13 +58,14 @@ interface dataPassController{
         val btn1 = view?.findViewById<Button>(R.id.btn_second)
         val btn2 = view?.findViewById<Button>(R.id.btn2_second)
         val tv =view?.findViewById<TextView>(R.id.tv_second)
-        tv?.text = "(${communicatedString})"
+     //   tv?.text = "(${communicatedString})"
        btn1?.text="set parent text"
         btn2?.text="go back "
+        viewModel.getLiveData().observe(this, Observer<String> {
+            tv?.text=it
+        })
          btn1?.setOnClickListener {
-             viewModel.getLiveData().observe(this, Observer<String> {
-                 tv?.text=it
-             })
+
              viewModel.select("this is set by the child controller")
              (targetController as HomeController).recieveMSG(Random.nextInt())
          }
