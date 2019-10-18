@@ -8,16 +8,27 @@ import android.view.View
 import android.view.ViewGroup
 import android.widget.Button
 import android.widget.TextView
+import androidx.lifecycle.ViewModelProvider
+import androidx.lifecycle.ViewModelProviders
 import com.bluelinelabs.conductor.ControllerChangeHandler
 import com.bluelinelabs.conductor.ControllerChangeType
 import com.bluelinelabs.conductor.RouterTransaction
 import com.bluelinelabs.conductor.changehandler.HorizontalChangeHandler
 import com.saucefan.stuff.assignment.EXTRA_STRING
+import com.saucefan.stuff.assignment.MainActivity
 import com.saucefan.stuff.assignment.R
 import org.w3c.dom.Text
+import work.beltran.conductorviewmodel.ViewModelController
 
 
-class HomeController (bundle:Bundle) : BaseCtrler(bundle),ChildController.dataPassController {
+class HomeController (bundle:Bundle) : ViewModelController(bundle),ChildController.dataPassController {
+
+
+    companion object {
+        private const val TAG = "MyViewModelController"
+    }
+
+
     lateinit var communicatedStringLate:String
     constructor(communicatedString:String? =null): this(Bundle().apply {
         putString(EXTRA_STRING,communicatedString)
@@ -27,15 +38,22 @@ class HomeController (bundle:Bundle) : BaseCtrler(bundle),ChildController.dataPa
     }
 
     override fun recieveMSG(int: Int) {
+        var communicatedString=communicatedString + "$int"
         var communicatedStringLate = communicatedString + "$int"
-        val target =view?.findViewById<TextView>(R.id.tv_first)
-            target?.text=communicatedStringLate
+       val target= view?.findViewById<TextView>(R.id.tv_first)
+       target?.text = " $communicatedString from childController()"
     }
 
     val horizontalChangeHandler =HorizontalChangeHandler()
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup): View {
         val view = inflater.inflate(R.layout.first, container, false)
-        //(view.findViewById(R.id.tv_first) as TextView).text = "i'm da joker baby.txt backstack size =${communicatedString}"
+communicatedStringLate=""
+            (view.findViewById(R.id.tv_first) as TextView).text =
+                "i'm da joker baby.txt backstack size =${communicatedString} + ${communicatedStringLate}"
+
+        val viewModel =activity?.run {
+            viewModelProvider((SharedViewModel::class.java)
+        } ?: throw Exception("Invalid Activity")
         return view
     }
 
@@ -58,7 +76,9 @@ class HomeController (bundle:Bundle) : BaseCtrler(bundle),ChildController.dataPa
                 .pushChangeHandler(HorizontalChangeHandler())
                 .popChangeHandler(HorizontalChangeHandler())
             )*/recieveMSG(6)
-            router.pushController(RouterTransaction.with(ChildController(this,Bundle() ))
+            router.pushController(RouterTransaction.with(ChildController(this,Bundle().apply {
+                this.putString(EXTRA_STRING,"this text was communicated from home to child via bundle")
+            } ))
                 .pushChangeHandler(HorizontalChangeHandler())
                 .popChangeHandler(HorizontalChangeHandler())
             )

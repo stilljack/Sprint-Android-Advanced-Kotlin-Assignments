@@ -44,14 +44,14 @@ class MainActivity : AppCompatActivity() {
         if(!router.hasRootController()) {
             router.setRoot(RouterTransaction.with(HomeController("Hello Conductor!1")))
         }
-        routerTwo = Conductor.attachRouter(this, containerTwo, savedInstanceState)
+     /*   routerTwo = Conductor.attachRouter(this, containerTwo, savedInstanceState)
         if(!routerTwo.hasRootController()) {
             routerTwo.setRoot(RouterTransaction.with(HomeController("Hello Conductor!2")))
         }
         routerThree = Conductor.attachRouter(this, containerThree, savedInstanceState)
         if(!routerThree.hasRootController()) {
             routerThree.setRoot(RouterTransaction.with(HomeController("Hello Conductor!")))
-        }
+        }*/
     }
 
     override fun onCreateOptionsMenu(menu: Menu): Boolean {

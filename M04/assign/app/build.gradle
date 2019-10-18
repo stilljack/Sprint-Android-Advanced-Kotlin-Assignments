@@ -34,21 +34,32 @@ dependencies {
     androidTestImplementation 'androidx.test.ext:junit:1.1.1'
     androidTestImplementation 'androidx.test.espresso:espresso-core:3.2.0'
 
+
+
+
 // If you want the components that go along with
 // Android's support libraries (currently just a PagerAdapter):
     implementation 'com.bluelinelabs:conductor-support:3.0.0-rc1'
 
 // If you want RxJava lifecycle support:
-    implementation 'com.bluelinelabs:conductor-rxlifecycle:3.0.0-rc1'
+ //   implementation 'com.bluelinelabs:conductor-rxlifecycle:3.0.0-rc1'
 
 // If you want RxJava2 lifecycle support:
-    implementation 'com.bluelinelabs:conductor-rxlifecycle2:3.0.0-rc1'
+  //  implementation 'com.bluelinelabs:conductor-rxlifecycle2:3.0.0-rc1'
 
 // If you want RxJava2 Autodispose support:
-    implementation 'com.bluelinelabs:conductor-autodispose:3.0.0-rc1'
+  //  implementation 'com.bluelinelabs:conductor-autodispose:3.0.0-rc1'
 
 // If you want Controllers that are Lifecycle-aware (architecture components):
-    implementation 'com.bluelinelabs:conductor-archlifecycle:3.0.0-rc1'
-    implementation 'android.arch.lifecycle:livedata:1.1.1'
+   // implementation 'com.bluelinelabs:conductor-archlifecycle:3.0.0-rc1'
 
+    def lifecycle_version = "2.1.0"
+
+    // ViewModel and LiveData
+    implementation "com.github.miquelbeltran:conductor-viewmodel:1.0.3"
+    implementation "androidx.lifecycle:lifecycle-extensions:$lifecycle_version"
+    implementation "android.arch.lifecycle:extensions:1.1.1"
+/*    implementation 'android.arch.lifecycle:livedata:1.1.1'
+    implementation "android.arch.lifecycle:viewmodel:1.1.1"
+    "*/
 }
