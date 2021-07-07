@@ -1,0 +1,33 @@
+<androidx.appcompat.widget.LinearLayoutCompat
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context=".MainActivity"
+    android:id="@+id/parentlaylout"
+    android:orientation="vertical">
+
+
+    <com.bluelinelabs.conductor.ChangeHandlerFrameLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_weight="3"
+
+        android:id="@+id/first"
+        />
+    <com.bluelinelabs.conductor.ChangeHandlerFrameLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_weight="3"
+        android:id="@+id/second"
+        />
+    <com.bluelinelabs.conductor.ChangeHandlerFrameLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_weight="3"
+        android:layout_alignBottom="@id/first"
+        android:id="@+id/third"
+        />
+
+</androidx.appcompat.widget.LinearLayoutCompat>
